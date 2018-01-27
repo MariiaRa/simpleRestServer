@@ -32,8 +32,8 @@ import ua.com.service.BookService;
 import ua.com.service.CategoryService;
 import ua.com.service.PublisherService;
 
-@CrossOrigin //можна будувати запити до контролера із інших доменів
-@RestController //віддають джейсони методи контролера
+@CrossOrigin
+@RestController
 @RequestMapping("/book")
 public class BookPropertiesController {
 	@Autowired
@@ -55,24 +55,24 @@ public class BookPropertiesController {
 	
 	@GetMapping("/categories")
 	public List<Category> categories(){
-		return servicec.findAll(); //масив джейсон об'єктів
+		return servicec.findAll();
 		}
 	
 	@GetMapping("/publishers")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<Publisher> publishers(){
-		return servicep.findAll(); //масив джейсон об'єктів
+		return servicep.findAll(); в
 		}
 	
 	@GetMapping("/authors")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<Author> authors(){
-		return servicea.findAll(); //масив джейсон об'єктів
+		return servicea.findAll();
 		}
 	
 	@GetMapping
 	public List<Book> books(){
-		return serviceb.findAll(); //масив джейсон об'єктів
+		return serviceb.findAll();
 		}
 		
 	//PUT
@@ -160,30 +160,20 @@ public class BookPropertiesController {
 		return serviceb.findAllandSortByTitleAsc(myPageRequest);
 	}
 	
-	@PostMapping("/page/sort/by/title/desc")
-	public Page<BookResponse> sortByTitleDesc(@RequestBody MyPageRequest myPageRequest){
-		return serviceb.findAllandSortByTitleDesc(myPageRequest);
-	}
+
 	
 	@PostMapping("/page/sort/by/price/asc")
 	public Page<BookResponse> sortByPriceAsc(@RequestBody MyPageRequest myPageRequest){
 		return serviceb.findAllandSortByPriceAsc(myPageRequest);
 	}
 	
-	@PostMapping("/page/sort/by/price/desc")
-	public Page<BookResponse> sortByPriceDesc(@RequestBody MyPageRequest myPageRequest){
-		return serviceb.findAllandSortByPriceDesc(myPageRequest);
-	}
+
 	
 	@PostMapping("/page/sort/by/datepub/asc")
 	public Page<BookResponse> sortByDatePubAsc(@RequestBody MyPageRequest myPageRequest){
 		return serviceb.findAllandSortByDatePubAsc(myPageRequest);
 	}
-	
-	@PostMapping("/page/sort/by/datepub/desc")
-	public Page<BookResponse> sortByDatePubDesc(@RequestBody MyPageRequest myPageRequest){
-		return serviceb.findAllandSortByDatePubDesc(myPageRequest);
-	}
+
 	
 	@PostMapping("/update")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -203,13 +193,11 @@ public class BookPropertiesController {
 	return true;
 	}
 	@PostMapping("/search")
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<Book> books(@RequestBody SearchingRequest searchingRequest){
 		return serviceb.findAll(searchingRequest);
 	}
 	
 	@PostMapping("/search/page")
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Page<BookResponse> booksInSearch(@RequestBody CategorySearchPageRequest searchingRequest){
 		return serviceb.findAllReturnPage(searchingRequest);
 	}
